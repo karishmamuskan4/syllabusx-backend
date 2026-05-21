@@ -23,19 +23,30 @@ def analyze_gap():
         return jsonify({"status": "error", "message": "Groq API Key is missing on Render!"}), 500
 
     try:
-       # Pura dimaag AI ko de diya
+    
         prompt = f"""
-        Act as an expert technical career advisor. 
-        Target Profession: {profession}
-        Student's College Syllabus: {syllabus}
+        You are a Principal Engineer and Senior Technical Recruiter at a Fortune 500 tech company.
+        Your task is to conduct a ruthless, highly accurate gap analysis between a student's college syllabus and the current, cutting-edge industry requirements for the following role:
+
+        TARGET PROFESSION: {profession}
+        STUDENT SYLLABUS: {syllabus}
+
+        Analyze this like a strict industry expert. Do not hallucinate skills that are already present in the syllabus.
+
+        CRITICAL INSTRUCTIONS & RUBRIC:
+        1. "matchScore": Calculate a highly accurate, realistic percentage (0-100) representing how industry-ready this syllabus makes the student for the target profession. Be strict and objective.
+        2. "matchingSkills": List the precise skills from the syllabus that are genuinely useful for the target profession.
+        3. "missingSkills": Provide EXACTLY 10 critical, high-level conceptual skills, methodologies, or computer science fundamentals missing from the syllabus (e.g., "Microservices Architecture", "Agile Methodologies", "System Design", "CI/CD"). Do NOT include specific software names here.
+        4. "industryTools": Provide EXACTLY 5 specific software tools, frameworks, libraries, or cloud platforms that dominate this profession today (e.g., "Docker", "React.js", "AWS", "Figma", "Kubernetes").
+        5. "marketTrendsAdvice": Provide EXACTLY 5 actionable, hyper-specific pieces of advice based on current global tech market trends (e.g., "GenAI integration is becoming mandatory for full-stack roles", "Shift focus towards Rust for memory-safe systems programming").
+
+        Return ONLY a valid, minified JSON object. Absolutely no markdown, no conversational text, no backticks outside the JSON.
         
-        Compare the syllabus against the real-world industry requirements for the target profession. 
-        Return ONLY a valid JSON object in this exact format. 
-        CRITICAL: You MUST provide exactly 10 crucial skills in the "missingSkills" array.
         {{
             "matchScore": 45,
             "matchingSkills": ["skill1", "skill2"],
-            "missingSkills": ["missing1", "missing2", "missing3", "missing4", "missing5", "missing6", "missing7", "missing8", "missing9", "missing10"],
+            "missingSkills": ["concept1", "concept2", "concept3", "concept4", "concept5", "concept6", "concept7", "concept8", "concept9", "concept10"],
+            "industryTools": ["tool1", "tool2", "tool3", "tool4", "tool5"],
             "marketTrendsAdvice": ["trend1", "trend2", "trend3", "trend4", "trend5"]
         }}
         """
