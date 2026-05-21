@@ -23,19 +23,20 @@ def analyze_gap():
         return jsonify({"status": "error", "message": "Groq API Key is missing on Render!"}), 500
 
     try:
-        # Pura dimaag AI ko de diya
+       # Pura dimaag AI ko de diya
         prompt = f"""
         Act as an expert technical career advisor. 
         Target Profession: {profession}
         Student's College Syllabus: {syllabus}
         
         Compare the syllabus against the real-world industry requirements for the target profession. 
-        Return ONLY a valid JSON object in this exact format (no markdown, no backticks, no extra text):
+        Return ONLY a valid JSON object in this exact format. 
+        CRITICAL: You MUST provide exactly 10 crucial skills in the "missingSkills" array.
         {{
             "matchScore": 45,
             "matchingSkills": ["skill1", "skill2"],
-            "missingSkills": ["missing1", "missing2"],
-            "marketTrendsAdvice": ["trend1", "trend2"]
+            "missingSkills": ["missing1", "missing2", "missing3", "missing4", "missing5", "missing6", "missing7", "missing8", "missing9", "missing10"],
+            "marketTrendsAdvice": ["trend1", "trend2", "trend3", "trend4", "trend5"]
         }}
         """
         
